@@ -6,6 +6,7 @@ MASON_LIB_FILE=lib/libstxxl.a
 
 . ${MASON_DIR}/mason.sh
 
+# https://github.com/stxxl/stxxl/issues/31
 function mason_load_source {
     mason_download \
         https://github.com/stxxl/stxxl/releases/download/1.4.1/stxxl-1.4.1.tar.gz \
@@ -16,11 +17,16 @@ function mason_load_source {
     export MASON_BUILD_PATH=${MASON_ROOT}/.build/${MASON_NAME}-${MASON_VERSION}
 }
 
+function mason_prepare_compile {
+    cd $(dirname ${MASON_ROOT})
+    ${MASON_DIR}/mason install cmake 3.5.2
+    MASON_CMAKE=$(${MASON_DIR}/mason prefix cmake 3.5.2)
+}
+
 function mason_compile {
     mkdir build
     cd build
-    cmake 
-    cmake ../ -DCMAKE_INSTALL_PREFIX=${MASON_PREFIX} \
+    ${MASON_CMAKE}/bin/cmake ../ -DCMAKE_INSTALL_PREFIX=${MASON_PREFIX} \
      -DBUILD_STATIC_LIBS=ON \
      -DUSE_GNU_PARALLEL=OFF \
      -DCMAKE_BUILD_TYPE=Release
