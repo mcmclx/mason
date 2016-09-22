@@ -27,7 +27,7 @@ function mason_build {
     cp -R "${CLANG_PREFIX}/include/c++" "${MASON_PREFIX}/include/c++"
     # copy libs
     mkdir -p "${MASON_PREFIX}/lib"
-    cp "${CLANG_PREFIX}/lib/libLTO.dylib" "${MASON_PREFIX}/lib/"
+    cp -r ${CLANG_PREFIX}/lib/libLTO.* "${MASON_PREFIX}/lib/"
     mkdir -p "${MASON_PREFIX}/lib/clang/${MASON_VERSION}"
     cp -R ${CLANG_PREFIX}/lib/clang/${MASON_VERSION} "${MASON_PREFIX}/lib/clang/${MASON_VERSION}"
 
