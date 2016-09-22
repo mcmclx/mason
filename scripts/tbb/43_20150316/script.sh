@@ -24,7 +24,9 @@ function create_links() {
 }
 
 function mason_compile {
+    rm -rf $(pwd)/build/BUILDPREFIX_release
     mason_step "Loading patch '${MASON_DIR}/scripts/${MASON_NAME}/${MASON_VERSION}/patch.diff'..."
+    patch -N -p1 < ${MASON_DIR}/scripts/${MASON_NAME}/${MASON_VERSION}/patch.diff
     CXXFLAGS="${CXXFLAGS} -Wno-attributes"
     # libtbb does not support -fvisibility=hidden
     CXXFLAGS="${CXXFLAGS//-fvisibility=hidden}"
