@@ -1,18 +1,17 @@
 language: generic
 
+sudo: false
+
 matrix:
   include:
     - os: osx
       osx_image: xcode7.3
     - os: linux
-      sudo: false
+      compiler: clang
       addons:
         apt:
-          sources:
-           - ubuntu-toolchain-r-test
-          packages:
-           - libstdc++-5-dev
-
+          sources: [ 'ubuntu-toolchain-r-test' ]
+          packages: [ 'libstdc++-5-dev' ]
 env:
   global:
    - secure: "clCFM3prHnDocZ8lXlimPxAogvFirD1Zx8cMcFJ/XpkTA/0pCgnhpArM4y/NzLHR57pNZTSCr3p6XZI1c1iTG4Zm8x0sK2A4aTFRahypXNy/e+LzAbtd1y1+dEEDwlJvNNGxizQX4frhOgSNQFDFnWLtmF3stlft5YWyc2kI+FI="
@@ -20,6 +19,5 @@ env:
 
 script:
 - ./mason build ${MASON_NAME} ${MASON_VERSION}
-
-after_success:
 - ./mason publish ${MASON_NAME} ${MASON_VERSION}
+
