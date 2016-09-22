@@ -21,16 +21,16 @@ function mason_build {
     cp "${CLANG_PREFIX}/bin/clang" "${MASON_PREFIX}/bin/"
     # copy share
     mkdir -p "${MASON_PREFIX}/share"
-    cp -R "${CLANG_PREFIX}/share/clang" "${MASON_PREFIX}/share/clang"
+    cp -r "${CLANG_PREFIX}/share/clang" "${MASON_PREFIX}/share/"
     # copy include/c++
     mkdir -p "${MASON_PREFIX}/include"
-    cp -R "${CLANG_PREFIX}/include/c++" "${MASON_PREFIX}/include/c++"
+    cp -r "${CLANG_PREFIX}/include/c++" "${MASON_PREFIX}/include/"
     # copy libs
     mkdir -p "${MASON_PREFIX}/lib"
     cp -r ${CLANG_PREFIX}/lib/libc++* "${MASON_PREFIX}/lib/"
     cp -r ${CLANG_PREFIX}/lib/libLTO.* "${MASON_PREFIX}/lib/"
-    mkdir -p "${MASON_PREFIX}/lib/clang/${MASON_VERSION}"
-    cp -R ${CLANG_PREFIX}/lib/clang/${MASON_VERSION} "${MASON_PREFIX}/lib/clang/${MASON_VERSION}"
+    mkdir -p "${MASON_PREFIX}/lib/clang"
+    cp -R ${CLANG_PREFIX}/lib/clang/${MASON_VERSION} "${MASON_PREFIX}/lib/clang/"
 
     # fixup symlinks
     cd "${MASON_PREFIX}/bin/"

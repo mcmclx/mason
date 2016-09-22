@@ -21,11 +21,11 @@ function mason_build {
 
     # copy include/c++
     mkdir -p "${MASON_PREFIX}/include"
-    cp -R "${CLANG_PREFIX}/include/c++" "${MASON_PREFIX}/include/c++"
+    cp -r "${CLANG_PREFIX}/include/c++" "${MASON_PREFIX}/include/"
     # copy libs
     mkdir -p "${MASON_PREFIX}/lib"
-    mkdir -p "${MASON_PREFIX}/lib/clang/${MASON_VERSION}"
-    cp -R ${CLANG_PREFIX}/lib/clang/${MASON_VERSION} "${MASON_PREFIX}/lib/clang/${MASON_VERSION}"
+    mkdir -p "${MASON_PREFIX}/lib/clang"
+    cp -r ${CLANG_PREFIX}/lib/clang/${MASON_VERSION} "${MASON_PREFIX}/lib/clang/"
 }
 
 function mason_cflags {
