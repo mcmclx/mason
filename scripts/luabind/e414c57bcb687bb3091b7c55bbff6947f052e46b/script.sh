@@ -20,8 +20,8 @@ function mason_prepare_compile {
     cd $(dirname ${MASON_ROOT})
     ${MASON_DIR}/mason install lua 5.3.0
     MASON_LUA=$(${MASON_DIR}/mason prefix lua 5.3.0)
-    ${MASON_DIR}/mason install boost 1.57.0
-    MASON_BOOST_HEADERS=$(${MASON_DIR}/mason prefix boost 1.57.0)
+    ${MASON_DIR}/mason install boost 1.61.0
+    MASON_BOOST_HEADERS=$(${MASON_DIR}/mason prefix boost 1.61.0)
     SYSTEM_ZLIB="/usr"
 }
 
