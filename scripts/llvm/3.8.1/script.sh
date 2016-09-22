@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 
 MASON_NAME=llvm
-MASON_VERSION=3.9.0
+MASON_VERSION=3.8.1
 MAJOR_MINOR=$(echo $MASON_VERSION | cut -d '.' -f1-2)
 MASON_LIB_FILE=bin/clang
 
