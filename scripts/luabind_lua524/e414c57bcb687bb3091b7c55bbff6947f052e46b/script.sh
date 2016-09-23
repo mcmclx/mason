@@ -13,7 +13,7 @@ function mason_load_source {
 
     mason_extract_tar_gz
 
-    export MASON_BUILD_PATH=${MASON_ROOT}/.build/${MASON_NAME}-${MASON_VERSION}
+    export MASON_BUILD_PATH=${MASON_ROOT}/.build/luabind-${MASON_VERSION}
 }
 
 function mason_prepare_compile {
@@ -27,6 +27,7 @@ function mason_prepare_compile {
 }
 
 function mason_compile {
+    rm -rf ./build
     mkdir build
     cd build
     ${MASON_CMAKE}/bin/cmake ../ -DCMAKE_INSTALL_PREFIX=${MASON_PREFIX} \
