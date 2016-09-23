@@ -1,0 +1,12 @@
+diff --git a/utils/mlock.cpp b/utils/mlock.cpp
+index 56e498a..fcd05cd 100644
+--- a/utils/mlock.cpp
++++ b/utils/mlock.cpp
+@@ -17,6 +17,7 @@
+ #include <cstring>
+ #include <iostream>
+ #include <sys/mman.h>
++#include <unistd.h>
+ 
+ int main(int argc, char ** argv)
+ {
