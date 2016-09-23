@@ -13,23 +13,23 @@ function mason_load_source {
 
     mason_extract_tar_gz
 
-    export MASON_BUILD_PATH=${MASON_ROOT}/.build/luabind-${MASON_VERSION}
+    export MASON_BUILD_PATH=${MASON_ROOT}/.build/${MASON_NAME}-${MASON_VERSION}
 }
 
 function mason_prepare_compile {
     cd $(dirname ${MASON_ROOT})
     ${MASON_DIR}/mason install lua 5.2.4
     MASON_LUA=$(${MASON_DIR}/mason prefix lua 5.2.4)
-    ${MASON_DIR}/mason install boost 1.57.0
-    MASON_BOOST_HEADERS=$(${MASON_DIR}/mason prefix boost 1.57.0)
-    SYSTEM_ZLIB="/usr"
+    ${MASON_DIR}/mason install boost 1.61.0
+    MASON_BOOST_HEADERS=$(${MASON_DIR}/mason prefix boost 1.61.0)
+    ${MASON_DIR}/mason install cmake 3.5.2
+    MASON_CMAKE=$(${MASON_DIR}/mason prefix cmake 3.5.2)
 }
 
 function mason_compile {
     mkdir build
     cd build
-    cmake
-    cmake ../ -DCMAKE_INSTALL_PREFIX=${MASON_PREFIX} \
+    ${MASON_CMAKE}/bin/cmake ../ -DCMAKE_INSTALL_PREFIX=${MASON_PREFIX} \
       -DLUA_LIBRARIES=${MASON_LUA}/lib \
       -DLUA_INCLUDE_DIR=${MASON_LUA}/include \
       -DBOOST_INCLUDEDIR=${MASON_BOOST_HEADERS}/include \
