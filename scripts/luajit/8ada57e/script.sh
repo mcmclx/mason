@@ -27,7 +27,7 @@ function mason_compile {
     rm -f ${MASON_PREFIX}/lib/*so*
     rm -f ${MASON_PREFIX}/lib/*dylib*
     cd ${MASON_PREFIX}/lib
-    ln -s "libluajit.a" "liblua.a"
+    ln -s "libluajit-5.1.a" "liblua.a"
 
 }
 
