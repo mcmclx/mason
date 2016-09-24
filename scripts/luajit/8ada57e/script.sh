@@ -20,6 +20,10 @@ function mason_compile {
     mason_step "Loading patch ${MASON_DIR}/scripts/${MASON_NAME}/${MASON_VERSION}/patch.diff"
     patch -N -p1 < ${MASON_DIR}/scripts/${MASON_NAME}/${MASON_VERSION}/patch.diff
     make DEFAULT_CC=$CC CFLAGS="${CFLAGS}" LDFLAGS="${LDFLAGS}" PREFIX=${MASON_PREFIX} install
+    # clear out shared libs since we only want to provide static lib
+    rm -f ${MASON_PREFIX}/lib/*so*
+    rm -f ${MASON_PREFIX}/lib/*dylib*
+
 }
 
 function mason_cflags {
