@@ -32,7 +32,7 @@ function mason_compile {
     cd build
     ${MASON_CMAKE}/bin/cmake ../ -DCMAKE_INSTALL_PREFIX=${MASON_PREFIX} \
       -DLUA_LIBRARIES=${MASON_LUA}/lib \
-      -DLUA_INCLUDE_DIR=${MASON_LUA}/include/luajit-2.0 \
+      -DLUA_INCLUDE_DIR=${MASON_LUA}/include \
       -DBOOST_INCLUDEDIR=${MASON_BOOST_HEADERS}/include \
       -DCMAKE_BUILD_TYPE=Release \
       -DBUILD_TESTING=OFF

@@ -20,9 +20,14 @@ function mason_compile {
     mason_step "Loading patch ${MASON_DIR}/scripts/${MASON_NAME}/${MASON_VERSION}/patch.diff"
     patch -N -p1 < ${MASON_DIR}/scripts/${MASON_NAME}/${MASON_VERSION}/patch.diff
     make DEFAULT_CC=$CC CFLAGS="${CFLAGS}" LDFLAGS="${LDFLAGS}" PREFIX=${MASON_PREFIX} install
+    # put includes at normal place
+    mv ${MASON_PREFIX}/include/luajit-2.0/*.* ${MASON_PREFIX}/include/
+    rm -rf ${MASON_PREFIX}/include/luajit-2.0
     # clear out shared libs since we only want to provide static lib
     rm -f ${MASON_PREFIX}/lib/*so*
     rm -f ${MASON_PREFIX}/lib/*dylib*
+    cd ${MASON_PREFIX}/lib
+    ln -s "libluajit.a" "liblua.a"
 
 }
 
