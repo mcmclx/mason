@@ -30,6 +30,7 @@ function mason_compile {
     rm -rf build
     mkdir build
     cd build
+    ls -l ${MASON_LUA}/include
     ${MASON_CMAKE}/bin/cmake ../ -DCMAKE_INSTALL_PREFIX=${MASON_PREFIX} \
       -DLUA_LIBRARIES=${MASON_LUA}/lib \
       -DLUA_INCLUDE_DIR=${MASON_LUA}/include \
