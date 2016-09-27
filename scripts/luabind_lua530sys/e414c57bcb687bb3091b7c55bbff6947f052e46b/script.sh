@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 
-MASON_NAME=luabind_lua533_boost61
+MASON_NAME=luabind_lua524
 MASON_VERSION=e414c57bcb687bb3091b7c55bbff6947f052e46b
 MASON_LIB_FILE=lib/libluabind.a
 
@@ -18,23 +18,19 @@ function mason_load_source {
 
 function mason_prepare_compile {
     cd $(dirname ${MASON_ROOT})
-    ${MASON_DIR}/mason install lua 5.3.3
-    MASON_LUA=$(${MASON_DIR}/mason prefix lua 5.3.3)
     ${MASON_DIR}/mason install boost 1.61.0
     MASON_BOOST_HEADERS=$(${MASON_DIR}/mason prefix boost 1.61.0)
-    ${MASON_DIR}/mason install cmake 3.6.2
-    MASON_CMAKE=$(${MASON_DIR}/mason prefix cmake 3.6.2)
+    ${MASON_DIR}/mason install cmake 3.5.2
+    MASON_CMAKE=$(${MASON_DIR}/mason prefix cmake 3.5.2)
 }
 
 function mason_compile {
-    rm -rf build
+    rm -rf ./build
     mkdir build
     cd build
     ${MASON_CMAKE}/bin/cmake ../ -DCMAKE_INSTALL_PREFIX=${MASON_PREFIX} \
-      -DCMAKE_CXX_COMPILER="${CXX}" \
-      -DCMAKE_CXX_FLAGS="$CXXFLAGS -DLUA_COMPAT_5_2" \
-      -DLUA_LIBRARIES=${MASON_LUA}/lib \
-      -DLUA_INCLUDE_DIR=${MASON_LUA}/include \
+      -DLUA_LIBRARIES=${LUA_LIBRARIES:-/usr/lib/x86_64-linux-gnu/} \
+      -DLUA_INCLUDE_DIR=${LUA_INCLUDE_DIR:-/usr/include/lua5.3} \
       -DBOOST_INCLUDEDIR=${MASON_BOOST_HEADERS}/include \
       -DCMAKE_BUILD_TYPE=Release \
       -DBUILD_TESTING=OFF

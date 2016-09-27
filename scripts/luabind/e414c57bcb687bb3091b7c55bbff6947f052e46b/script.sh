@@ -27,9 +27,12 @@ function mason_prepare_compile {
 }
 
 function mason_compile {
+    rm -rf build
     mkdir build
     cd build
     ${MASON_CMAKE}/bin/cmake ../ -DCMAKE_INSTALL_PREFIX=${MASON_PREFIX} \
+      -DCMAKE_CXX_COMPILER="${CXX}" \
+      -DCMAKE_CXX_FLAGS="$CXXFLAGS -DLUA_COMPAT_5_2" \
       -DLUA_LIBRARIES=${MASON_LUA}/lib \
       -DLUA_INCLUDE_DIR=${MASON_LUA}/include \
       -DBOOST_INCLUDEDIR=${MASON_BOOST_HEADERS}/include \

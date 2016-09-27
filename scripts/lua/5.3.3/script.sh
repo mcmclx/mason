@@ -17,7 +17,7 @@ function mason_load_source {
 }
 
 function mason_compile {
-    make generic CC=$CC CFLAGS="${CFLAGS}" LDFLAGS="${LDFLAGS}" INSTALL_TOP=${MASON_PREFIX} install
+    make generic CC=$CC INSTALL_TOP=${MASON_PREFIX} install
 }
 
 function mason_cflags {
