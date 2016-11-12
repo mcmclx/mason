@@ -13,6 +13,10 @@ matrix:
            - pkg-config
            - libpthread-stubs0-dev
            - libssl-dev
+           - x11proto-gl-dev
+           - libx11-dev
+           - libxext-dev
+           - libxcb1-dev
 
 script:
 - ./mason build ${MASON_NAME} ${MASON_VERSION}

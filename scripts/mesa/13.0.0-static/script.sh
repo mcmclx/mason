@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 
 MASON_NAME=mesa
-MASON_VERSION=13.0.0
+MASON_VERSION=13.0.0-static
 MASON_LIB_FILE=lib/libOSMesa.so
 MASON_PKGCONFIG_FILE=lib/pkgconfig/osmesa.pc
 
