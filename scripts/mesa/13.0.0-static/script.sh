@@ -4,7 +4,7 @@ LIB_VERSION=13.0.0
 
 MASON_NAME=mesa
 MASON_VERSION=${LIB_VERSION}-static
-MASON_LIB_FILE=lib/libOSMesa.so
+MASON_LIB_FILE=lib/libOSMesa.a
 MASON_PKGCONFIG_FILE=lib/pkgconfig/osmesa.pc
 
 . ${MASON_DIR}/mason.sh
@@ -37,10 +37,13 @@ function mason_compile {
         --disable-egl \
         --disable-driglx-direct \
         --disable-osmesa \
+        --disable-shared \
+        --disable-shared-glapi \
         --enable-opengl \
         --enable-gallium-osmesa \
         --enable-gallium-llvm \
         --enable-texture-float \
+        --enable-static \
         --disable-llvm-shared-libs \
         --with-gallium-drivers=swrast \
         --with-llvm-prefix=${MASON_LLVM}/bin \
