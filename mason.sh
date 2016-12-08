@@ -5,6 +5,7 @@ set -o pipefail
 export MASON_ROOT=${MASON_ROOT:-`pwd`/mason_packages}
 MASON_BUCKET=${MASON_BUCKET:-mason-binaries}
 MASON_IGNORE_OSX_SDK=${MASON_IGNORE_OSX_SDK:-false}
+MASON_COMMON_PREFIX=${MASON_COMMON_PREFIX:-$MASON_ROOT/common}
 
 MASON_UNAME=`uname -s`
 if [ ${MASON_UNAME} = 'Darwin' ]; then
@@ -676,6 +677,21 @@ function mason_publish {
     curl -f -I https://${MASON_BUCKET}.s3.amazonaws.com/${MASON_BINARIES}
 }
 
+function mason_copy_to_common {
+    ## TODO
+    echo "Promoting package to $MASON_COMMON_PREFIX"
+    if [ ! -d $MASON_COMMON_PREFIX ]; then
+        mkdir -p $MASON_COMMON_PREFIX
+    fi
+
+    rsync -a --exclude="mason.ini" $MASON_PREFIX/* $MASON_COMMON_PREFIX
+    if [ $? == "0" ] ; then
+        echo "Successfully promoted $MASON_NAME-$MASON_VERSION"
+    else
+        echo "Failed to promote $MASON_NAME-$MASON_VERSION"
+    fi
+}
+
 function mason_run {
     if [ "$1" == "install" ]; then
         if [ ${MASON_SYSTEM_PACKAGE:-false} = true ]; then
@@ -720,6 +736,9 @@ function mason_run {
         mason_prefix
     elif [ "$1" == "existing" ]; then
         mason_list_existing
+    elif [ "$1" == "promote" ]; then
+        mason_check_installed
+        mason_copy_to_common
     elif [ $1 ]; then
         mason_error "Unknown command '$1'"
         exit 1

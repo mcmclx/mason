@@ -16,6 +16,10 @@ function mason_load_source {
     export MASON_BUILD_PATH=${MASON_ROOT}/.build/libjpeg-turbo-1.5.0
 }
 
+function mason_prepare_compile {
+    ${MASON_DIR}/mason install nasm 2.11.06
+    MASON_NASM=$(${MASON_DIR}/mason prefix nasm 2.11.06)
+}
 
 function mason_compile {
     export CFLAGS="${CFLAGS:-} -O3"
@@ -29,7 +33,7 @@ function mason_compile {
         --with-pic \
         --disable-shared \
         --disable-dependency-tracking \
-        NASM=yasm
+        NASM=${MASON_NASM}/bin/nasm
 
     V=1 make install -j${MASON_CONCURRENCY}
     rm -rf ${MASON_PREFIX}/bin

@@ -17,6 +17,13 @@ function mason_load_source {
     export MASON_BUILD_PATH=${MASON_ROOT}/.build/libpng-${MASON_VERSION}
 }
 
+function mason_prepare_compile {
+    ${MASON_DIR}/mason install zlib 1.2.8
+    MASON_ZLIB=$(${MASON_DIR}/mason prefix zlib 1.2.8)
+    export ZLIBLIB="$MASON_ZLIB/lib"
+    export ZLIBINC="$MASON_ZLIB/include"
+}
+
 function mason_compile {
     export CFLAGS="${CFLAGS:-} -O3"
     ./configure \

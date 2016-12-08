@@ -69,8 +69,6 @@ function mason_load_source {
 function mason_prepare_compile {
     ${MASON_DIR}/mason install ccache 3.2.4
     MASON_CCACHE=$(${MASON_DIR}/mason prefix ccache 3.2.4)
-    ${MASON_DIR}/mason install clang 3.8.0
-    MASON_CLANG=$(${MASON_DIR}/mason prefix clang 3.8.0)
     ${MASON_DIR}/mason install cmake 3.5.2
     MASON_CMAKE=$(${MASON_DIR}/mason prefix cmake 3.5.2)
     ${MASON_DIR}/mason install ninja 1.7.1
@@ -78,8 +76,8 @@ function mason_prepare_compile {
 }
 
 function mason_compile {
-    export CXX="${MASON_CLANG}/bin/clang++"
-    export CC="${MASON_CLANG}/bin/clang"
+    export CC="`which gcc`"
+    export CXX="`which g++`"
     mkdir -p ./build
     cd ./build
     CMAKE_EXTRA_ARGS=""

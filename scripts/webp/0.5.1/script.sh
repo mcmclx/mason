@@ -17,6 +17,18 @@ function mason_load_source {
     export MASON_BUILD_PATH=${MASON_ROOT}/.build/libwebp-${MASON_VERSION}
 }
 
+function mason_prepare_compile {
+    ${MASON_DIR}/mason install libjpeg-turbo 1.5.1
+    MASON_JPEG=$(${MASON_DIR}/mason prefix libjpeg-turbo 1.5.1)
+    ${MASON_DIR}/mason install libpng 1.6.25
+    MASON_PNG=$(${MASON_DIR}/mason prefix libpng 1.6.25)
+    ${MASON_DIR}/mason install libtiff 4.0.7
+    MASON_PNG=$(${MASON_DIR}/mason prefix libtiff 4.0.7)
+
+    ## TODO add giflib stuff
+
+}
+
 function mason_compile {
     export CFLAGS="${CFLAGS:-} -Os"
     ./configure \

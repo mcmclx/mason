@@ -66,8 +66,15 @@ function mason_load_source {
     setup_release ${MASON_VERSION} ${MASON_BUILD_PATH}
 }
 
+function mason_prepare_compile {
+    ${MASON_DIR}/mason install cmake 3.6.2
+    MASON_CMAKE=$(${MASON_DIR}/mason prefix cmake 3.6.2)
+    ${MASON_DIR}/mason install ninja 1.7.1
+    MASON_NINJA=$(${MASON_DIR}/mason prefix ninja 1.7.1)
+    export PATH="${MASON_NINJA}/bin:$PATH"
+}
+
 function mason_compile {
-    CLANG_GIT_REV=$(git -C tools/clang/ rev-list --max-count=1 HEAD)
     mkdir -p ./build
     cd ./build
     CMAKE_EXTRA_ARGS=""
@@ -78,19 +85,16 @@ function mason_compile {
         CMAKE_EXTRA_ARGS="${CMAKE_EXTRA_ARGS} -DDEFAULT_SYSROOT=/"
         CMAKE_EXTRA_ARGS="${CMAKE_EXTRA_ARGS} -DCMAKE_OSX_DEPLOYMENT_TARGET=10.10"
     fi
-    cmake ../ -G Ninja -DCMAKE_INSTALL_PREFIX=${MASON_PREFIX} \
+    ${MASON_CMAKE}/bin/cmake ../ -G Ninja -DCMAKE_INSTALL_PREFIX=${MASON_PREFIX} \
+     -DCMAKE_MAKE_PROGRAM=${MASON_NINJA}/bin/ninja \
      -DCMAKE_BUILD_TYPE=Release \
      -DLLVM_ENABLE_ASSERTIONS=OFF \
-     -DCLANG_VENDOR=mapbox/mason \
-     -DCLANG_REPOSITORY_STRING=https://github.com/mapbox/mason \
-     -DCLANG_APPEND_VC_REV=$CLANG_GIT_REV \
-     -DCLANG_VENDOR_UTI=org.mapbox.clang \
      -DCMAKE_EXE_LINKER_FLAGS="${LDFLAGS}" \
      -DCMAKE_CXX_FLAGS="${CXXFLAGS}" \
      -DLLVM_OPTIMIZED_TABLEGEN=ON \
      ${CMAKE_EXTRA_ARGS}
-    ninja -j${MASON_CONCURRENCY} -k5
-    ninja install -k5
+    ${MASON_NINJA}/bin/ninja -j${MASON_CONCURRENCY} -k5
+    ${MASON_NINJA}/bin/ninja install -k5
     cd ${MASON_PREFIX}/bin/
     ln -s "clang++" "clang++-3.5"
 }
