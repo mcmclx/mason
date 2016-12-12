@@ -678,7 +678,6 @@ function mason_publish {
 }
 
 function mason_copy_to_common {
-    ## TODO
     echo "Promoting package to $MASON_COMMON_PREFIX"
     if [ ! -d $MASON_COMMON_PREFIX ]; then
         mkdir -p $MASON_COMMON_PREFIX

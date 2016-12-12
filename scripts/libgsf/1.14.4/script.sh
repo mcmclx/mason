@@ -1,15 +1,15 @@
 #!/usr/bin/env bash
 
-MASON_NAME=libpng
-MASON_VERSION=1.6.25
-MASON_LIB_FILE=lib/libpng.a
+MASON_NAME=libgsf
+MASON_VERSION=1.14
+MASON_LIB_FILE=lib/libgsf.a
 MASON_PKGCONFIG_FILE=lib/pkgconfig/libpng.pc
 
 . ${MASON_DIR}/mason.sh
 
 function mason_load_source {
     mason_download \
-        http://downloads.sourceforge.net/project/libpng/libpng16/${MASON_VERSION}/libpng-${MASON_VERSION}.tar.gz \
+        http://ftp.acc.umu.se/pub/GNOME/sources/libgsf/1.14/libgsf-1.14.4.tar.gz
         a88b710714a8e27e5e5aa52de28076860fc7748c
 
     mason_extract_tar_gz
@@ -37,16 +37,6 @@ function mason_compile {
         --disable-dependency-tracking
 
     make install -j${MASON_CONCURRENCY}
-}
-
-function mason_strip_ldflags {
-    shift # -L...
-    shift # -lpng16
-    echo "$@"
-}
-
-function mason_ldflags {
-    mason_strip_ldflags $(`mason_pkgconfig` --static --libs)
 }
 
 function mason_clean {

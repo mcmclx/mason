@@ -35,7 +35,7 @@ function mason_compile {
         NASM=${MASON_NASM}/bin/nasm
 
     V=1 make install -j${MASON_CONCURRENCY}
-    rm -rf ${MASON_PREFIX}/bin
+#    rm -rf ${MASON_PREFIX}/bin
 }
 
 function mason_cflags {
