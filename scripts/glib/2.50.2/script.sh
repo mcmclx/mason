@@ -2,8 +2,8 @@
 
 MASON_NAME=glib
 MASON_VERSION=2.50.2
-MASON_LIB_FILE=lib/glib.a
-MASON_PKGCONFIG_FILE=lib/pkgconfig/glib.pc
+MASON_LIB_FILE=lib/libglib-2.0.a
+MASON_PKGCONFIG_FILE=lib/pkgconfig/glib-2.0.pc
 
 . ${MASON_DIR}/mason.sh
 

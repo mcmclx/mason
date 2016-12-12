@@ -23,7 +23,7 @@ function mason_prepare_compile {
     export ZLIBLIB="$MASON_ZLIB/lib"
     export ZLIBINC="$MASON_ZLIB/include"
     export LDFLAGS="${LDFLAGS:-} -L$MASON_ZLIB/lib"
-    export CPPFLAGS="${CPPFLAGS:-} -I $MASON_ZLIB/include"
+    export CPPFLAGS="${CPPFLAGS:-} -I$MASON_ZLIB/include"
 }
 
 function mason_compile {
